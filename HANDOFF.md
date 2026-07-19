@@ -7,7 +7,16 @@ session. For deep context read **CLAUDE.md**.
 
 ## Where we are
 
-**Milestone: `feat/shell` — COMPLETE (on branch, PR open, not merged).**
+**Milestone: `feat/product-photos` — COMPLETE (on branch, PR open, not merged).**
+
+- 20 real product photos from Pexels, self-hosted in `/public/products` (one
+  per product), wired into the catalog via `next/image` (alt text, responsive
+  `sizes`, first row `priority`). Neon gradient + icon remain as a graceful
+  fallback. `public/products/CREDITS.md` records provenance.
+
+**Earlier milestone: `feat/catalog` — COMPLETE (merged to master).**
+
+**Earlier milestone: `feat/shell` — COMPLETE (merged to master).**
 
 - Brand theme (dark near-black + neon cyan→violet) in `globals.css`;
   `isolation:isolate` + safe-area utilities baked in.

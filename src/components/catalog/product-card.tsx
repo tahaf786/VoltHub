@@ -23,10 +23,12 @@ export function ProductCard({
   product,
   onDetails,
   onReserve,
+  priority = false,
 }: {
   product: Product;
   onDetails: (p: Product) => void;
   onReserve: (p: Product) => void;
+  priority?: boolean;
 }) {
   const level = stockLevel(product.stock);
   const reservable = isReservable(product);
@@ -34,7 +36,7 @@ export function ProductCard({
   return (
     <article className="flex flex-col overflow-hidden rounded-2xl border border-line bg-surface/50 transition-colors hover:border-line-strong">
       <div className="relative">
-        <ProductImage category={product.category} />
+        <ProductImage product={product} priority={priority} />
         <span className="absolute left-3 top-3 rounded-full bg-background/70 px-2.5 py-1 text-xs text-muted backdrop-blur">
           {categoryLabel(product.category)}
         </span>
