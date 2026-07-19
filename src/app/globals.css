@@ -1,26 +1,100 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ---------------------------------------------------------------------------
+   VoltHub brand theme — dark tech / neon.
+   Near-black base (NOT pure #000) + one confident neon accent (cyan → violet).
+   Tailwind v4 CSS-first: tokens below generate utilities (bg-background,
+   text-accent, border-border, font-display, …).
+--------------------------------------------------------------------------- */
+@theme {
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+
+  /* Surfaces */
+  --color-background: #0a0b10; /* near-black, faint blue */
+  --color-surface: #12141d; /* cards / raised panels */
+  --color-surface-2: #191c27;
+
+  /* Text — AA on the dark base */
+  --color-foreground: #e8eaf0;
+  --color-muted: #9aa0b2;
+
+  /* Hairlines (use border-line / bg-line) */
+  --color-line: rgba(255, 255, 255, 0.08);
+  --color-line-strong: rgba(255, 255, 255, 0.14);
+
+  /* Neon accent journey */
+  --color-accent: #2dd4d9; /* electric cyan — CTAs, highlights, focus */
+  --color-accent-strong: #16c3c9;
+  --color-accent-foreground: #04131a; /* dark text ON the accent */
+  --color-violet: #a78bfa; /* secondary neon */
+
+  /* Feedback */
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-danger: #f87171;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    color-scheme: dark;
+  }
+
+  html {
+    background-color: var(--color-background);
+  }
+
+  body {
+    background-color: var(--color-background);
+    /* Subtle static neon glows — cheap CSS gradients, no canvas/JS, no stacking
+       bug. background is painted ON the body itself (not a separate fixed layer),
+       so guard #1 (opaque-body-over-fixed-bg) cannot bite. */
+    background-image:
+      radial-gradient(55rem 55rem at 82% -8%, rgba(45, 212, 217, 0.1), transparent 60%),
+      radial-gradient(48rem 48rem at -5% 18%, rgba(167, 139, 250, 0.09), transparent 55%);
+    background-attachment: fixed;
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    /* Guard #1 (CLAUDE.md §7.1): keep the stacking context isolated so any future
+       fixed full-bleed background is never hidden by the body. Do NOT remove. */
+    isolation: isolate;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Accessible, on-brand focus ring everywhere. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-accent) 35%, transparent);
+    color: var(--color-foreground);
+  }
+
+  /* Decorative motion stays gentle for users who ask for less. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Safe-area helpers for edge-to-edge mobile (viewport-fit=cover). */
+@utility px-safe {
+  padding-left: max(1.25rem, env(safe-area-inset-left));
+  padding-right: max(1.25rem, env(safe-area-inset-right));
+}
+@utility pt-safe {
+  padding-top: env(safe-area-inset-top);
+}
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
 }

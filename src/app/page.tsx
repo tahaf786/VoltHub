@@ -1,23 +1,40 @@
-import { formatINR } from "@/lib/money";
+import { SiteHeader } from "@/components/site-header";
+import { Hero } from "@/components/sections/hero";
+import { PlaceholderSection } from "@/components/sections/placeholder";
+import { SiteFooter } from "@/components/sections/footer";
 
-// Placeholder home page for the chore/scaffold milestone. The real brand shell,
-// hero, catalog, reservation flow and skin designer land on their own feature
-// branches (see HANDOFF.md). This exists so the two-tier test suite has a page
-// to assert against and the production build has an entry point.
 export default function Home() {
   return (
-    <main className="flex flex-1 flex-col items-center justify-center gap-4 px-6 py-24 text-center">
-      <p className="text-sm font-medium uppercase tracking-widest text-zinc-500">
-        Mobile Accessories · Bengaluru
-      </p>
-      <h1 className="text-4xl font-semibold tracking-tight sm:text-6xl">
-        VoltHub
-      </h1>
-      <p className="max-w-md text-lg text-zinc-400">
-        Browse, reserve for in-store pickup, and design your own modular phone
-        skin. Sample price: {formatINR(1299)}.
-      </p>
-      <p className="text-sm text-zinc-600">Scaffold ready — features in progress.</p>
-    </main>
+    <>
+      <SiteHeader />
+      <main className="flex-1">
+        <Hero />
+
+        <PlaceholderSection
+          id="catalog"
+          eyebrow="Browse"
+          title="The catalog"
+          description="Cases, skins, tempered glass, chargers, cables, earbuds and power banks — searchable by phone model, category and price, with honest live stock."
+          branch="feat/catalog"
+        />
+
+        <PlaceholderSection
+          id="skin-designer"
+          eyebrow="Make it yours"
+          title="Design your own modular skin"
+          description="Pick your device, choose a base material and finish, add modular panels, textures and decals, and watch the price update live before you reserve it."
+          branch="feat/skin-designer"
+        />
+
+        <PlaceholderSection
+          id="reservation"
+          eyebrow="Hold it"
+          title="Reserve for in-store pickup"
+          description="Add items to your reservation, drop your name and phone, and get a pickup code. No payment online — you pay when you collect."
+          branch="feat/reservation"
+        />
+      </main>
+      <SiteFooter />
+    </>
   );
 }
