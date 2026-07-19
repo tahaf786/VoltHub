@@ -217,6 +217,13 @@ feature exists.
    as a nested `<button>` is invalid HTML → hydration error. Rule: the inner
    control is `<span role="button" tabIndex={0}>` with key handlers, never a
    nested `<button>`/`<a>` inside another.
+7. **CI `npm ci` fails on missing `@emnapi/*` (lockfile drift).** An incremental
+   `npm install <pkg>` on Windows prunes the Linux-only optional deps (`@emnapi`,
+   pulled in transitively by native tooling) from `package-lock.json`, so CI's
+   strict `npm ci` on Linux rejects the lock ("Missing @emnapi/runtime … from
+   lock file"). Rule: after changing dependencies, **regenerate the lock cleanly**
+   — `rm -rf node_modules package-lock.json && npm install` — then commit it.
+   A clean lock has the full set of `@emnapi` entries (grep to confirm).
 
 ---
 
