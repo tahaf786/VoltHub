@@ -224,6 +224,12 @@ feature exists.
    lock file"). Rule: after changing dependencies, **regenerate the lock cleanly**
    — `rm -rf node_modules package-lock.json && npm install` — then commit it.
    A clean lock has the full set of `@emnapi` entries (grep to confirm).
+8. **Playwright ran against the wrong app (port reuse).** This machine also runs
+   an AsUwish dev server on **port 3000**; with `reuseExistingServer` on port
+   3000, Playwright reused it and VoltHub tests hit AsUwish → "catalog not found",
+   flaky pass/fail. Rule: VoltHub E2E uses a **dedicated port (3411)** with
+   `reuseExistingServer: false` (see `playwright.config.ts`) so it always starts
+   its own fresh server. Never point E2E at 3000.
 
 ---
 

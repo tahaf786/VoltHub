@@ -14,7 +14,9 @@ export default defineConfig({
     ? [["github"], ["html", { open: "never" }]]
     : "list",
   use: {
-    baseURL: "http://localhost:3000",
+    // Dedicated port (NOT 3000) so a concurrent dev server for another project
+    // can never be reused in its place. See CLAUDE.md §7.8.
+    baseURL: "http://localhost:3411",
     trace: "on-first-retry",
   },
   projects: [
@@ -22,9 +24,11 @@ export default defineConfig({
     { name: "mobile", use: { ...devices["Pixel 7"] } },
   ],
   webServer: {
-    command: "npm run dev",
-    url: "http://localhost:3000",
-    reuseExistingServer: !process.env.CI,
+    command: "npm run dev -- -p 3411",
+    url: "http://localhost:3411",
+    // Always start a FRESH VoltHub server — never reuse whatever happens to be
+    // running, which caused tests to run against the wrong app.
+    reuseExistingServer: false,
     timeout: 120_000,
   },
 });
