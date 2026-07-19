@@ -31,12 +31,13 @@ export function CatalogSection() {
         role="list"
         aria-label="Products"
       >
-        {PRODUCTS.map((product) => (
+        {PRODUCTS.map((product, i) => (
           <div role="listitem" key={product.id}>
             <ProductCard
               product={product}
               onDetails={setOpenProduct}
               onReserve={reserve}
+              priority={i < 4}
             />
           </div>
         ))}

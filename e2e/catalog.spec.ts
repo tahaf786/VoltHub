@@ -15,6 +15,24 @@ test.describe("catalog", () => {
     await expect(page.getByText(/in store|Only \d+ left|Out of stock/).first()).toBeVisible();
   });
 
+  test("product cards show a real photo that loads, with alt text", async ({
+    page,
+  }) => {
+    await page.goto("/#catalog");
+    const firstImg = page
+      .getByRole("list", { name: "Products" })
+      .getByRole("listitem")
+      .first()
+      .getByRole("img")
+      .first();
+
+    await expect(firstImg).toHaveAttribute("alt", /\S+/);
+    // The photo actually decoded (not a broken image).
+    await expect
+      .poll(() => firstImg.evaluate((el: HTMLImageElement) => el.naturalWidth))
+      .toBeGreaterThan(0);
+  });
+
   test("out-of-stock items cannot be reserved", async ({ page }) => {
     await page.goto("/#catalog");
     const soldOut = page.getByRole("button", { name: "Sold out" });

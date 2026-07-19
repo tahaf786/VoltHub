@@ -58,7 +58,8 @@ export function ProductDialog({
         <div>
           <div className="relative">
             <ProductImage
-              category={product.category}
+              product={product}
+              sizes="(max-width: 640px) 92vw, 32rem"
               className="aspect-[16/10] rounded-t-3xl"
             />
             <button
