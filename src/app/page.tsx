@@ -1,5 +1,6 @@
 import { SiteHeader } from "@/components/site-header";
 import { Hero } from "@/components/sections/hero";
+import { CatalogSection } from "@/components/sections/catalog";
 import { PlaceholderSection } from "@/components/sections/placeholder";
 import { SiteFooter } from "@/components/sections/footer";
 
@@ -10,13 +11,7 @@ export default function Home() {
       <main className="flex-1">
         <Hero />
 
-        <PlaceholderSection
-          id="catalog"
-          eyebrow="Browse"
-          title="The catalog"
-          description="Cases, skins, tempered glass, chargers, cables, earbuds and power banks — searchable by phone model, category and price, with honest live stock."
-          branch="feat/catalog"
-        />
+        <CatalogSection />
 
         <PlaceholderSection
           id="skin-designer"
