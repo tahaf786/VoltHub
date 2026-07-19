@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Inter } from "next/font/google";
+import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
 const display = Space_Grotesk({
@@ -12,13 +13,41 @@ const body = Inter({
   subsets: ["latin"],
 });
 
+const title = `${siteConfig.name} — Mobile Accessories in ${siteConfig.store.area}`;
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
-    default: "VoltHub — Mobile Accessories in Bengaluru",
-    template: "%s · VoltHub",
+    default: title,
+    template: `%s · ${siteConfig.name}`,
   },
-  description:
-    "Browse cases, skins, tempered glass, chargers, cables, earbuds and power banks. Reserve in-store for pickup, or design your own modular phone skin.",
+  description: siteConfig.description,
+  applicationName: siteConfig.name,
+  keywords: [
+    "phone cases",
+    "mobile accessories",
+    "tempered glass",
+    "phone skins",
+    "chargers",
+    "power banks",
+    siteConfig.store.area,
+    "in-store pickup",
+  ],
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    title,
+    description: siteConfig.description,
+    locale: "en_IN",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description: siteConfig.description,
+  },
+  robots: { index: true, follow: true },
 };
 
 export const viewport: Viewport = {

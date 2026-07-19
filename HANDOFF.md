@@ -7,7 +7,20 @@ session. For deep context read **CLAUDE.md**.
 
 ## Where we are
 
-**Milestone: `chore/scaffold` — COMPLETE (pending push + owner sign-off).**
+**Milestone: `feat/shell` — COMPLETE (on branch, PR open, not merged).**
+
+- Brand theme (dark near-black + neon cyan→violet) in `globals.css`;
+  `isolation:isolate` + safe-area utilities baked in.
+- `site-config.ts` (identity, hours, contact, currency, nav) + `utils.ts` (cn) —
+  both pure + unit-tested.
+- Header (sticky, mobile menu, safe-area), hero, footer, Section shell, Button
+  primitive, placeholder sections for catalog/skin/reservation anchors.
+- Full SEO: metadata (OG/Twitter/canonical), `icon.svg` favicon, dynamic
+  `opengraph-image`, `robots.ts`, `sitemap.ts`.
+- Tests: 21 unit + 16 E2E (sections/order, nav anchors, security headers,
+  no-overflow @375/1440, viewport-fit, mobile menu) — all green.
+
+**Earlier milestone: `chore/scaffold` — COMPLETE (pushed to master, CI green).**
 
 - Next.js 16 (App Router) + React 19 + Tailwind v4, TypeScript strict.
 - Two-tier test suite wired:
@@ -42,9 +55,7 @@ npm run test:e2e:install  # one-time: install Chromium for Playwright
 
 ## What's next (one branch per feature, strict TDD)
 
-1. **`feat/shell`** — brand theme (dark/neon), `site-config.ts`, `utils.ts`
-   (cn), header/nav (mobile menu, safe-area), home hero, footer, favicon,
-   OG image, robots, sitemap, full SEO metadata.
+1. **`feat/shell`** — ✅ DONE (PR open).
 2. **`feat/catalog`** — `catalog.ts` (product types + demo data), product grid,
    product card, product detail, honest stock status.
 3. **`feat/search-filter`** — `filter.ts` (PURE: search + filter by
