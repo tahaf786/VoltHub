@@ -7,7 +7,15 @@ session. For deep context read **CLAUDE.md**.
 
 ## Where we are
 
-**Milestone: `feat/product-photos` — COMPLETE (on branch, PR open, not merged).**
+**Milestone: `feat/search-filter` — COMPLETE (on branch, PR open, not merged).**
+
+- Pure `filter.ts` (query over name/brand/category, category, phone-model with
+  Universal-always-matches, max-price) + `priceBounds`; 12 unit tests.
+- Filter UI: search, category chips, model select, price slider, live result
+  count, clear, and a no-results state. Wired into the catalog.
+- E2E (4): category narrows grid, search + no-results, clear restores, count.
+
+**Earlier milestone: `feat/product-photos` — COMPLETE (merged to master).**
 
 - 20 real product photos from Pexels, self-hosted in `/public/products` (one
   per product), wired into the catalog via `next/image` (alt text, responsive
