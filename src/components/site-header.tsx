@@ -1,13 +1,15 @@
 "use client";
 
 import * as React from "react";
-import { Menu, X, Zap } from "lucide-react";
+import { Menu, ShoppingBag, X, Zap } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
+import { useCart } from "@/hooks/use-cart";
 import { buttonClasses } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
   const [open, setOpen] = React.useState(false);
+  const { count } = useCart();
 
   // Lock body scroll while the mobile menu is open.
   React.useEffect(() => {
@@ -47,27 +49,47 @@ export function SiteHeader() {
             ))}
           </nav>
 
-          <div className="hidden md:block">
-            <a href="#reservation" className={buttonClasses({ size: "sm" })}>
-              Reserve pickup
+          <div className="flex items-center gap-1.5">
+            {/* Reservation cart */}
+            <a
+              href="#reservation"
+              aria-label={
+                count > 0
+                  ? `Reservation, ${count} item${count === 1 ? "" : "s"}`
+                  : "Reservation"
+              }
+              className="relative grid size-10 place-items-center rounded-full text-foreground transition-colors hover:bg-surface-2"
+            >
+              <ShoppingBag className="size-5" aria-hidden="true" />
+              {count > 0 ? (
+                <span className="absolute right-0.5 top-0.5 grid h-[1.1rem] min-w-[1.1rem] place-items-center rounded-full bg-accent px-1 text-[11px] font-semibold leading-none text-accent-foreground">
+                  {count}
+                </span>
+              ) : null}
             </a>
-          </div>
 
-          {/* Mobile toggle */}
-          <button
-            type="button"
-            className="grid size-10 place-items-center rounded-full text-foreground md:hidden"
-            aria-expanded={open}
-            aria-controls="mobile-menu"
-            aria-label={open ? "Close menu" : "Open menu"}
-            onClick={() => setOpen((v) => !v)}
-          >
-            {open ? (
-              <X className="size-6" aria-hidden="true" />
-            ) : (
-              <Menu className="size-6" aria-hidden="true" />
-            )}
-          </button>
+            <div className="hidden md:block">
+              <a href="#reservation" className={buttonClasses({ size: "sm" })}>
+                Reserve pickup
+              </a>
+            </div>
+
+            {/* Mobile toggle */}
+            <button
+              type="button"
+              className="grid size-10 place-items-center rounded-full text-foreground md:hidden"
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+              aria-label={open ? "Close menu" : "Open menu"}
+              onClick={() => setOpen((v) => !v)}
+            >
+              {open ? (
+                <X className="size-6" aria-hidden="true" />
+              ) : (
+                <Menu className="size-6" aria-hidden="true" />
+              )}
+            </button>
+          </div>
         </div>
       </div>
 

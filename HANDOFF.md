@@ -7,7 +7,18 @@ session. For deep context read **CLAUDE.md**.
 
 ## Where we are
 
-**Milestone: `feat/search-filter` — COMPLETE (on branch, PR open, not merged).**
+**Milestone: `feat/reservation` — COMPLETE (on branch, PR open, not merged).**
+
+- Pure `reservation.ts`: cart totals/count, `generatePickupCode` (injectable RNG,
+  unambiguous alphabet), name/phone validation; 12 unit tests.
+- `useCart` — module store read via `useSyncExternalStore` (SSR-safe hydration,
+  no provider, no setState-in-effect), localStorage-persisted, qty clamped to stock.
+- Reservation section: cart list w/ steppers + remove, totals, name+phone form
+  with inline validation, pickup-code confirmation. Header cart badge.
+  Reserve buttons across catalog now add to the cart.
+- E2E (4): add + badge, qty/remove, validation → pickup code, persists reload.
+
+**Earlier milestone: `feat/search-filter` — COMPLETE (merged to master).**
 
 - Pure `filter.ts` (query over name/brand/category, category, phone-model with
   Universal-always-matches, max-price) + `priceBounds`; 12 unit tests.
