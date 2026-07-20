@@ -8,6 +8,7 @@ import {
   priceBounds,
   type FilterState,
 } from "@/lib/filter";
+import { useCart } from "@/hooks/use-cart";
 import { Section, SectionHeading } from "@/components/shared/section";
 import { ProductCard } from "@/components/catalog/product-card";
 import { ProductDialog } from "@/components/catalog/product-dialog";
@@ -18,6 +19,7 @@ const BOUNDS = priceBounds(PRODUCTS);
 const INITIAL: FilterState = { ...DEFAULT_FILTER, maxPrice: BOUNDS.max };
 
 export function CatalogSection() {
+  const { add } = useCart();
   const [openProduct, setOpenProduct] = React.useState<Product | null>(null);
   const [filter, setFilter] = React.useState<FilterState>(INITIAL);
 
@@ -38,14 +40,18 @@ export function CatalogSection() {
   );
   const clear = React.useCallback(() => setFilter(INITIAL), []);
 
-  // Reserving is wired to the cart in feat/reservation. For now, close any
-  // dialog and take the shopper to the reservation section.
-  const reserve = React.useCallback(() => {
-    setOpenProduct(null);
-    document
-      .getElementById("reservation")
-      ?.scrollIntoView({ behavior: "smooth" });
-  }, []);
+  // Add to the reservation cart, close any open dialog, and jump to the
+  // reservation section so the shopper sees it land.
+  const reserve = React.useCallback(
+    (product: Product) => {
+      add(product);
+      setOpenProduct(null);
+      document
+        .getElementById("reservation")
+        ?.scrollIntoView({ behavior: "smooth" });
+    },
+    [add],
+  );
 
   return (
     <Section id="catalog">

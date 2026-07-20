@@ -1,6 +1,7 @@
 import { SiteHeader } from "@/components/site-header";
 import { Hero } from "@/components/sections/hero";
 import { CatalogSection } from "@/components/sections/catalog";
+import { ReservationSection } from "@/components/sections/reservation";
 import { PlaceholderSection } from "@/components/sections/placeholder";
 import { SiteFooter } from "@/components/sections/footer";
 
@@ -21,13 +22,7 @@ export default function Home() {
           branch="feat/skin-designer"
         />
 
-        <PlaceholderSection
-          id="reservation"
-          eyebrow="Hold it"
-          title="Reserve for in-store pickup"
-          description="Add items to your reservation, drop your name and phone, and get a pickup code. No payment online — you pay when you collect."
-          branch="feat/reservation"
-        />
+        <ReservationSection />
       </main>
       <SiteFooter />
     </>
